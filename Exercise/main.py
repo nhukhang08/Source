@@ -1,7 +1,7 @@
 f = open("input.txt", "r")
 g = open("output.txt", "w")
 
-def CSNT(): # BAI1
+def CSNT_BAI1():
     L, R = map(int, f.readline().split())
 
     def prime(x):
@@ -27,7 +27,7 @@ def CSNT(): # BAI1
     g.write(str(arr[-1]))
 
 
-def CHUSO(): #BAI2
+def CHUSO_BAI2():
     m, n, k = map(int, f.readline().split())
 
     t = "1"
@@ -44,7 +44,7 @@ def CHUSO(): #BAI2
 
     g.write(result)
 
-def XAUCON():
+def XAUCON_BAI3():
     s = str(f.readline())
 
     arr = []
@@ -69,8 +69,30 @@ def string():
 
     g.write(str(result))
 
+def SXPS_BAI4():
+    n, k = map(int, f.readline().split())
 
-def NGTOFIB():
+    phanso = []
+    dec = []
+    for i in range(n+1):
+        for j in range(i+1, n+1):
+            if i/j not in dec:
+                phanso.append(f"{i}/{j}")
+                dec.append(i/j)
+
+
+    def sapxep(arr: int, lst: str):
+        for i in range(len(arr)):
+            for j in range(len(arr)-i-1):
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+                    lst[j], lst[j+1] = lst[j+1], lst[j]
+        return lst
+
+    result = sapxep(dec, phanso)
+    g.write(result[k-1])
+
+def NGTOFIB_BAI5():
     """
     Input: int N
     Output: Là số X và những số thay đổi vị trí của X thõa mãn điều kiện
@@ -163,36 +185,7 @@ def NGTOFIB():
     g.write(str(result[-1][1]))
 
 
-
-
-def VITRISO():
-    n = int(f.readline())
-    arr = list(map(int, f.readline().split()))
-
-    vitri = -1
-    s = -1
-
-
-    for i in range(len(arr)-1):
-        a = arr[i]
-        b = arr[i+1]
-            
-        if vitri != -1:
-            s += b
-            if s <= 0:
-                vitri = -1
-                s = -1
-                if a+b>0:
-                    vitri = i
-                    s = a+b
-        
-        elif a+b > 0:
-            vitri = i
-            s = a+b
-
-    g.write(str(vitri+1))
-
-def SO():
+def SO_BAI6():
     """
     Cho số nguyên dương N (N<2.10^9). Hãy xác định xem trong phạm vi từ 1 tới N có bao nhiêu số, mà trong dạng biểu diễn nhị phân của nó có đúng K số 0 có nghĩa.
         Dữ liệu vào: Vào từ file SO.INP, gồm nhiều dòng, mỗi dòng chứa 2 số nguyên N và K (cách nhau 1 dấu cách).
@@ -224,81 +217,7 @@ def SO():
         n, k = map(int, line.split())
         print(checkCoutZeroBinary(n, k))
 
-
-def SXPS():
-    n, k = map(int, f.readline().split())
-
-    phanso = []
-    dec = []
-    for i in range(n+1):
-        for j in range(i+1, n+1):
-            if i/j not in dec:
-                phanso.append(f"{i}/{j}")
-                dec.append(i/j)
-
-
-    def sapxep(arr: int, lst: str):
-        for i in range(len(arr)):
-            for j in range(len(arr)-i-1):
-                if arr[j] > arr[j+1]:
-                    arr[j], arr[j+1] = arr[j+1], arr[j]
-                    lst[j], lst[j+1] = lst[j+1], lst[j]
-        return lst
-
-    result = sapxep(dec, phanso)
-    g.write(result[k-1])
-    
-def GIAITHUA():
-    """
-    Bài 9: Phân tích N! thành thừa số nguyên tố
-    Giai thừa N tăng rất nhanh, VD: 5! = 120, 10!=362880. Một cách để xác định các số lớn như vậy, người ta chỉ ra số lần xuất hiện các số nguyên tố trong phân tích của nó ra thừa số nguyên tố. VD: 825 có thể xác định như sau: (0 1 2 0 1) có nghĩa là 825=20 . 31 . 52 . 70 . 111.
-        Cho một số nguyên dương N<=1000. Hãy biểu diễn N! dưới dạng số lần xuất hiện các số nguyên tố trong phân tích số n! ra các thừa số nguyên tố.
-        Dữ liệu vào: File GIAITHUA.INP chỉ gồm số n.
-        Kết quả ra: File GIAITHUA.OUT dãy các số là số lần xuất hiện các số nguyên tố trong phân tích của N! 
-        Ví dụ:
-    GIAITHUA.INP
-    GIAITHUA.OUT
-    10
-    8 4 2 1
-
-    Ý tưởng:
-    Duyệt từ 1 đến n: (i)
-        tsnt = Phân tích thừa số nguyên tố của i
-        đếm số lần xuất hiện của 2, 3, 5, 7, 11 trong tsnt
-
-    Nếu 11 có giá trị bằng không thì không phải hiện thị:
-        In kết quả: Kết thúc
-
-    """
-
-    n = int(f.readline())
-
-    def tsnt(x):
-        result = []
-        for i in range(2, x):
-            while x % i == 0:
-                result.append(i)
-                x //= i
-        if len(result) == 0:
-            return [x]
-        return result
-
-    result = {}
-
-    for i in range(2, n+1):
-        number = tsnt(i)
-        for k in number:
-            if k in result:
-                result[k] += 1
-            else:
-                result[k] = 1
-
-    for i, j in result.items():
-        g.write(str(j) + " ")
-
-
-
-def CHIAHET():
+def CHIAHET_BAI7():
     """
     Cho trước các số nguyên M, N và K ( M+N<=30; 1<=M; 0<=N; 1<=K<500). Hãy tìm:
         1. Số lượng số tự nhiên khi chia hết cho K, biểu diễn nhị phân của nó đúng M số 1 và N số 0 (không tính các số không vô nghĩa).
@@ -366,6 +285,89 @@ def CHIAHET():
     for i in range(len(result)-1):
         g.write(str(result[i]) + " ")
     g.write(str(result[-1]))
+
+
+
+
+def VITRISO_BAI8():
+    n = int(f.readline())
+    arr = list(map(int, f.readline().split()))
+
+    vitri = -1
+    s = -1
+
+
+    for i in range(len(arr)-1):
+        a = arr[i]
+        b = arr[i+1]
+            
+        if vitri != -1:
+            s += b
+            if s <= 0:
+                vitri = -1
+                s = -1
+                if a+b>0:
+                    vitri = i
+                    s = a+b
+        
+        elif a+b > 0:
+            vitri = i
+            s = a+b
+
+    g.write(str(vitri+1))
+
+
+
+
+
+    
+def GIAITHUA_BAI9():
+    """
+    Bài 9: Phân tích N! thành thừa số nguyên tố
+    Giai thừa N tăng rất nhanh, VD: 5! = 120, 10!=362880. Một cách để xác định các số lớn như vậy, người ta chỉ ra số lần xuất hiện các số nguyên tố trong phân tích của nó ra thừa số nguyên tố. VD: 825 có thể xác định như sau: (0 1 2 0 1) có nghĩa là 825=20 . 31 . 52 . 70 . 111.
+        Cho một số nguyên dương N<=1000. Hãy biểu diễn N! dưới dạng số lần xuất hiện các số nguyên tố trong phân tích số n! ra các thừa số nguyên tố.
+        Dữ liệu vào: File GIAITHUA.INP chỉ gồm số n.
+        Kết quả ra: File GIAITHUA.OUT dãy các số là số lần xuất hiện các số nguyên tố trong phân tích của N! 
+        Ví dụ:
+    GIAITHUA.INP
+    GIAITHUA.OUT
+    10
+    8 4 2 1
+
+    Ý tưởng:
+    Duyệt từ 1 đến n: (i)
+        tsnt = Phân tích thừa số nguyên tố của i
+        đếm số lần xuất hiện của 2, 3, 5, 7, 11 trong tsnt
+
+    Nếu 11 có giá trị bằng không thì không phải hiện thị:
+        In kết quả: Kết thúc
+
+    """
+
+    n = int(f.readline())
+
+    def tsnt(x):
+        result = []
+        for i in range(2, x):
+            while x % i == 0:
+                result.append(i)
+                x //= i
+        if len(result) == 0:
+            return [x]
+        return result
+
+    result = {}
+
+    for i in range(2, n+1):
+        number = tsnt(i)
+        for k in number:
+            if k in result:
+                result[k] += 1
+            else:
+                result[k] = 1
+
+    for i, j in result.items():
+        g.write(str(j) + " ")
 
 
 def main():
