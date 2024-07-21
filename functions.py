@@ -66,8 +66,7 @@ def nTH_fibonacci(n:int, MOD: int) -> int:
 
 
 def main():
-    x = "abc"
-    print( transpose(x) )
+    print( is_fibonacci(103) )
 
 if __name__ == "__main__":
     main()
