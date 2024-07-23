@@ -1,5 +1,9 @@
-def CSNT_BAI1(): # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-trong-doan-lr-156140
-    L, R = map(int, f.readline().split())
+def CSNT(a: int, b: int) -> list: # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-trong-doan-lr-156140
+    """
+    Kiểm tra trong đoạn a, b có những số nguyên tố nào
+    Input: a, b (int) : Khoảng kiểm tra
+    Output: arr (list) : Các số nguyên tố trong đoạn [a, b]
+    """
     def prime(x):
         if x in [2, 3]:
             return True
@@ -10,15 +14,15 @@ def CSNT_BAI1(): # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-tron
                 return False
         return True
     arr = []
-    for i in range(L, R+1):
+    for i in range(a, b+1):
         if prime(i):
             arr.append(i)
-    g.write(str(len(arr))+ "\n")
-    for i in range(len(arr)-1):
-        g.write(str(arr[i])+ "\n")
-    g.write(str(arr[-1]))
-def CHUSO_BAI2():
-    m, n, k = map(int, f.readline().split())
+    return arr
+
+def CHUSO(m: int, n: int, k: int) -> str: # https://ucode.vn/problems/bai-2-tim-k-chu-so-cuoi-cung-cua-mn-156141
+    """
+    Tìm k số sau cùng của m^n
+    """
     t = "1"
     for i in range(n):
         if len(t) < k:
@@ -28,24 +32,25 @@ def CHUSO_BAI2():
     result = str(t[len(t) - k:])
     if len(result) < k:
         result = "0" * (k - len(result)) + result
-    g.write(result)
+    return result
 
-def XAUCON_BAI3():
-    s = f.readline()
+def XAUCON(s: str): # https://ucode.vn/problems/bai-3-dem-so-luong-xau-con-lien-tiep-khac-nhau-cua-s-158285
+    """
+    Đếm số lượng xâu con liên tiếp khác nhau trong chuỗi
+    """
     result = []
     for i in range(len(s)):
         for j in range(i + 1, len(s) + 1):
             char = s[i:j]
             if char not in result:
                 result.append(char)
-
     result = len(result)
+    return result
 
-    with open("output.txt", "w") as g:
-        g.write(f"{result}")
-
-def SXPS_BAI4():
-    n, k = map(int, f.readline().split())
+def SXPS(n: int, k: int) -> str: # https://ucode.vn/problems/bai-4-phan-so-thu-k-trong-tap-fn-158286
+    """
+    Trong danh sách có tất cả các phân số trong đoạn [0, 1] với mẫu số không quá *n. In ra vị trí *k của danh sách sau khi sắp xếp.
+    """
     phanso = []
     dec = []
     for i in range(n + 1):
@@ -61,11 +66,24 @@ def SXPS_BAI4():
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]
                     lst[j], lst[j + 1] = lst[j + 1], lst[j]
         return lst
-
     result = sapxep(dec, phanso)
-    g.write(result[k - 1])
-def NGTOFIB_BAI5(): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-156139
-    MOD = 10000000000
+    return result[k - 1]
+def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-156139
+    """
+    Trong X trong đoạn từ 10 -> n.
+    Tìm số thõa:
+        + X là số nguyên tố
+        + X là số fibonacci
+        + 1 hoán vị của X là số nguyên tố
+    Input: n (int)
+    Output:
+        [
+            [X_1, X_1hv]
+            [X_2, X_2hv]
+            [...]
+            [X_k, X_khv]
+        ]
+    """
     def matrix_mul(a, b):
         arr = [[0, 0], [0, 0]]
         for i in range(2):
@@ -84,8 +102,6 @@ def NGTOFIB_BAI5(): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-1
             return matrix_mul(matrix_root(tmp), a)
         else:
             return matrix_root(tmp)
-
-    fib = [[1, 1], [1, 0]]
     def is_prime(x):
         if x in [2, 3]:
             return True
@@ -110,10 +126,11 @@ def NGTOFIB_BAI5(): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-1
                 backtrack(path + options[i], options[:i] + options[i + 1:])
         backtrack("", x)
         return result
-    n = int(f.readline())
     num = 0
     index = 7
     result = []
+    fib = [[1, 1], [1, 0]]
+    MOD = 10000000000
     while num < n:
         num = binpow(fib, index)[0][1]  # Fib
         if num > n:
@@ -122,15 +139,10 @@ def NGTOFIB_BAI5(): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-1
         # -----------------------
         if is_prime(num) and len(hoanvi(num)) == 2:
             nums = hoanvi(num)
-
             result.append(nums)
-    for i in range(len(result) - 1):
-        for j in range(1):
-            g.write(str(result[i][j]) + " ")
-        g.write(str(result[i][-1]) + "\n")
-    g.write(str(result[-1][0]) + " ")
-    g.write(str(result[-1][1]))
-def SO_BAI6(): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
+    return result
+
+def SO(): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
     lines = f.readlines()
     def checkCoutZeroBinary(n, k):
         result = 0
@@ -147,7 +159,7 @@ def SO_BAI6(): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-
         n, k = map(int, line.split())
         g.write(str(checkCoutZeroBinary(n, k)) + "\n")
 
-def CHIAHET_BAI7(): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
+def CHIAHET(): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
     m, n, k = map(int, f.readline().split())
 
     def checkBit(x: int):
@@ -175,7 +187,7 @@ def CHIAHET_BAI7(): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
         g.write(str(result[i]) + " ")
     g.write(str(result[-1]))
 
-def VITRISO_BAI8(): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tron-158287
+def VITRISO(): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tron-158287
     n = int(f.readline())
     arr = list(map(int, f.readline().split()))
 
@@ -205,7 +217,7 @@ def VITRISO_BAI8(): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-von
             g.write(str(0))
         g.write(str(vitri + 1))
 
-def GIAITHUA_BAI9(): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguyen-to-158288
+def GIAITHUA(): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguyen-to-158288
     n = int(f.readline())
     def tsnt(x):
         result = []
@@ -229,22 +241,57 @@ def GIAITHUA_BAI9(): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so
 
 def BHK(): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
     pass
-def GOLD(): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-158504
-    pass
+
+def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-158504
+    """
+    Tìm đoạn trong danh sách có tổng lớn nhất
+    Input: n (int) -> Chều dài danh sách; arr (list) -> Danh sách cần tìm
+    Output: [s, a, b] (list)(int) -> Tổng lớn nhất tìm được; Vị trí đầu, vị trí cuối
+    """
+    ds = [arr[0]]
+    check = [False for i in range(n)]
+    for i in range(1, n):
+        num = arr[i] + ds[-1]
+        if num > arr[i]:
+            ds.append(num)
+            check[i] = True
+        else:
+            ds.append(arr[i])
+
+    # Tim max
+    a, b = 0, 0
+    m = ds[0]
+    for i in range(1, n):
+        if m < ds[i]:
+            m = ds[i]
+            b = i + 1
+    for i in range(b, -1, -1):
+        if not check[i]:
+            a = i + 1
+            break
+    return [m, a, b]
+
 def STRING(): # https://ucode.vn/problems/bai-12-string-158560: MPICOLY: OLYMPIC
-    k = int(f.readline())
-    char = f.readline()
+    pass
+    # k = int(f.readline())
+    # char = f.readline()
+    #
+    # point = len(char) - k
+    #
+    # print(point)
+    #
+    # g.write(str(result))
 
-    point = len(char) - k
-
-    print(point)
-
-    g.write(str(result))
 
 f = open("input.txt", "r")
 g = open("output.txt", "w")
 def main():
-    STRING()
+
+
+    result = NGTOFIB(20000)
+
+    print(result)
+    
     f.close(); g.close()
 
 if __name__ == "__main__":
