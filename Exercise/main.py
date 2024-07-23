@@ -68,6 +68,7 @@ def SXPS(n: int, k: int) -> str: # https://ucode.vn/problems/bai-4-phan-so-thu-k
         return lst
     result = sapxep(dec, phanso)
     return result[k - 1]
+
 def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-156139
     """
     Trong X trong đoạn từ 10 -> n.
@@ -142,61 +143,52 @@ def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-
             result.append(nums)
     return result
 
-def SO(): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
-    lines = f.readlines()
-    def checkCoutZeroBinary(n, k):
-        result = 0
-        for i in range(1, n + 1):
-            binary = bin(i)[2:]
-            num0 = 0
-            for num in binary:
-                if num == '0':
-                    num0 += 1
+def SO(n: int, k: int): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
+    """
+    Kiểm tra từ 1 đến n có bao nhiêu số khi biểu diễn ở dạng nhị phân có k số 0 (có nghĩa)
+    """
+    result = 0
+    for i in range(1, n + 1):
+        binary = bin(i)[2:]
+        num0 = 0
+        for num in binary:
+            if num == '0':
+                num0 += 1
             if num0 == k:
                 result += 1
-        return result
-    for line in lines:
-        n, k = map(int, line.split())
-        g.write(str(checkCoutZeroBinary(n, k)) + "\n")
+    return result
 
-def CHIAHET(): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
-    m, n, k = map(int, f.readline().split())
-
-    def checkBit(x: int):
+def CHIAHET(m: int, n: int, k: int): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
+    """
+    Cho M số 1; N số 0 thuộc mã nhị phân
+    Tìm các số thập phân chuyển từ nhị phân chia hết cho k
+    """
+    
+    def checkBit(x: int) -> bool:
         bit = bin(x)[2:]
-        num0 = 0
-        for num in bit:
-            if num == "0":
-                num0 += 1
-        if num0 == n:
-            return True
-        return False
+        num0 = bit.count('0')
+        return num0 == n
 
     start = int(pow(2, m + n - 1))
     end = int(pow(2, m + n)) - 1
-
     result = []
-
     for i in range(start, end + 1):
         if i % k == 0:
             if checkBit(i):
                 result.append(i)
+    return result
 
-    g.write(str(len(result)) + "\n")
-    for i in range(len(result) - 1):
-        g.write(str(result[i]) + " ")
-    g.write(str(result[-1]))
-
-def VITRISO(): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tron-158287
-    n = int(f.readline())
-    arr = list(map(int, f.readline().split()))
-
+def VITRISO(n: int, arr: list): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tron-158287
+    """
+    Tìm vị trí index mà tổng từ index cho đến hết là một số dương
+    Input: n (int): Chiều dài danh sách; arr (list): Danh sách cần kiểm tra
+    Output: index (int)
+    """
     if sum(arr) < 0:
-        g.write("0")
+        return 0
     else:
-        vitri = -1
-        s = -1
-        for i in range(len(arr) - 1):
+        vitri = -1; s = -1
+        for i in range(n - 1):
             a = arr[i]
             b = arr[i + 1]
 
@@ -214,11 +206,16 @@ def VITRISO(): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tro
                 s = a + b
 
         if vitri == -1:
-            g.write(str(0))
-        g.write(str(vitri + 1))
+            return 0
+        return vitri + 1
 
-def GIAITHUA(): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguyen-to-158288
-    n = int(f.readline())
+def GIAITHUA(n): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguyen-to-158288
+    """
+    Cho n!, hãy chuyển nó về thành thừa số nguyên tố và trả về dưới dạng
+    [2: số lượng, 3: số lượng, 5:....] (chỉ in số lượng)
+    Input: n (int)
+    Output: [a2, a3, a5, a7, a...] (list)       
+    """
     def tsnt(x):
         result = []
         for i in range(2, x):
@@ -236,8 +233,10 @@ def GIAITHUA(): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguy
                 result[k] += 1
             else:
                 result[k] = 1
+    content = []
     for i, j in result.items():
-        g.write(str(j) + " ")
+        content.append(j)
+    return content
 
 def BHK(): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
     pass
