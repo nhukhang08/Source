@@ -18,7 +18,6 @@ def CSNT(a: int, b: int) -> list: # https://ucode.vn/problems/bai-1-liet-ke-cac-
         if prime(i):
             arr.append(i)
     return arr
-
 def CHUSO(m: int, n: int, k: int) -> str: # https://ucode.vn/problems/bai-2-tim-k-chu-so-cuoi-cung-cua-mn-156141
     """
     Tìm k số sau cùng của m^n
@@ -33,7 +32,6 @@ def CHUSO(m: int, n: int, k: int) -> str: # https://ucode.vn/problems/bai-2-tim-
     if len(result) < k:
         result = "0" * (k - len(result)) + result
     return result
-
 def XAUCON(s: str): # https://ucode.vn/problems/bai-3-dem-so-luong-xau-con-lien-tiep-khac-nhau-cua-s-158285
     """
     Đếm số lượng xâu con liên tiếp khác nhau trong chuỗi
@@ -46,7 +44,6 @@ def XAUCON(s: str): # https://ucode.vn/problems/bai-3-dem-so-luong-xau-con-lien-
                 result.append(char)
     result = len(result)
     return result
-
 def SXPS(n: int, k: int) -> str: # https://ucode.vn/problems/bai-4-phan-so-thu-k-trong-tap-fn-158286
     """
     Trong danh sách có tất cả các phân số trong đoạn [0, 1] với mẫu số không quá *n. In ra vị trí *k của danh sách sau khi sắp xếp.
@@ -68,7 +65,6 @@ def SXPS(n: int, k: int) -> str: # https://ucode.vn/problems/bai-4-phan-so-thu-k
         return lst
     result = sapxep(dec, phanso)
     return result[k - 1]
-
 def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-156139
     """
     Trong X trong đoạn từ 10 -> n.
@@ -142,7 +138,6 @@ def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-
             nums = hoanvi(num)
             result.append(nums)
     return result
-
 def SO(n: int, k: int): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
     """
     Kiểm tra từ 1 đến n có bao nhiêu số khi biểu diễn ở dạng nhị phân có k số 0 (có nghĩa)
@@ -157,7 +152,6 @@ def SO(n: int, k: int): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k
             if num0 == k:
                 result += 1
     return result
-
 def CHIAHET(m: int, n: int, k: int): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
     """
     Cho M số 1; N số 0 thuộc mã nhị phân
@@ -177,7 +171,6 @@ def CHIAHET(m: int, n: int, k: int): # https://ucode.vn/problems/bai-7-chia-het-
             if checkBit(i):
                 result.append(i)
     return result
-
 def VITRISO(n: int, arr: list): # https://ucode.vn/problems/bai-8-tong-duong-cac-so-tren-vong-tron-158287
     """
     Tìm vị trí index mà tổng từ index cho đến hết là một số dương
@@ -208,7 +201,6 @@ def VITRISO(n: int, arr: list): # https://ucode.vn/problems/bai-8-tong-duong-cac
         if vitri == -1:
             return 0
         return vitri + 1
-
 def GIAITHUA(n): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-nguyen-to-158288
     """
     Cho n!, hãy chuyển nó về thành thừa số nguyên tố và trả về dưới dạng
@@ -237,9 +229,20 @@ def GIAITHUA(n): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-ngu
     for i, j in result.items():
         content.append(j)
     return content
+def BHK(n: int): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
+    list_num = [2, 7]
+    while list_num:
+        if list_num[0] % n == 0:
+            return list_num[0]
+        for num in "027":
+            list_num.append(int(str(list_num[0]) + num))
+            if int(str(list_num[0]) + num) % n == 0:
+                return int(str(list_num[0]) + num)
+        list_num.pop(0)
 
-def BHK(): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
-    pass
+def ONES(n: int): # https://ucode.vn/problems/bai-17-so-mot-159012
+    return pow(int("1" * n), 2)
+
 
 def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-158504
     """
@@ -269,25 +272,23 @@ def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-1585
             a = i + 1
             break
     return [m, a, b]
+def STRING(k: int, s1: str): # https://ucode.vn/problems/bai-12-string-158560: 
+    """
+    Ban đầu có một chuỗi s bị cắt tại vị trí k. Phần bị cắt của s từ k đến hết được đưa lên đầu của chuỗi s. Ta có chuỗi s1
+    Input: Vị trí cắt k (int); Cho chuỗi s1 (str)
+    Output: Chuỗi s1
+    Ví dụ: 
+        s = OLYMPIC
+        s1 = MPICOLY
+        k = 3
+    """
+    point = len(s1) - k % len(s1)
+    return s1[point:] + s1[:point]
 
-def STRING(): # https://ucode.vn/problems/bai-12-string-158560: MPICOLY: OLYMPIC
-    pass
-    # k = int(f.readline())
-    # char = f.readline()
-    #
-    # point = len(char) - k
-    #
-    # print(point)
-    #
-    # g.write(str(result))
-
-
-f = open("input.txt", "r")
-g = open("output.txt", "w")
 def main():
-
-
-    result = NGTOFIB(20000)
+    f, g = open("input.txt", "r"), open("output.txt", "w")
+    
+    result = STRING(3, "MPICOLY")
 
     print(result)
     
