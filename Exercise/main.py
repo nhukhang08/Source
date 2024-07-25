@@ -285,6 +285,45 @@ def STRING(k: int, s1: str): # https://ucode.vn/problems/bai-12-string-158560:
     point = len(s1) - k % len(s1)
     return s1[point:] + s1[:point]
 
+def LATGACH(arr: list, n: int, m: int): # https://ucode.vn/problems/bai-14-lat-gach-158938
+    """
+    n: hàng
+    m: cột
+    arr: danh sách
+    """
+    black, white = 0, 0
+    for i in range(n - 1):
+        for j in range(m - 1):
+            # check White
+            if arr[i][j] == 3 and arr[i][j + 1] == 1 and arr[i + 1][j] == 0 and arr[i + 1][j + 1] == 2:
+                black += 1
+            elif arr[i][j] == 2 and arr[i][j + 1] == 0 and arr[i + 1][j] == 1 and arr[i + 1][j + 1] == 3:
+                white += 1
+    return black, white
+def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
+    def strongPassword(s: str):
+        a, A, n = False, False, False
+
+        if len(s) >= 6:
+            for char in s:
+                if ord(char) in range(97, 123):
+                    a = True
+                elif ord(char) in range(65, 91):
+                    A = True
+                elif ord(char) in range(48, 58):
+                    n = True
+        if a and A and n:
+            return True
+        return False
+    count = 0
+    for i in range(len(s)):
+        for j in range(i + 6, len(s) + 1):
+            if strongPassword(s[i:j]):
+                count += 1
+                count += len(s) - j
+                break
+    return count
+
 def main():
     f, g = open("input.txt", "r"), open("output.txt", "w")
     
