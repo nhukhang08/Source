@@ -300,6 +300,53 @@ def LATGACH(arr: list, n: int, m: int): # https://ucode.vn/problems/bai-14-lat-g
             elif arr[i][j] == 2 and arr[i][j + 1] == 0 and arr[i + 1][j] == 1 and arr[i + 1][j + 1] == 3:
                 white += 1
     return black, white
+def CARO(arr: list):
+    """
+    Cho một ma trận nhị phân
+    Tìm số 1 liên tiếp lớn nhất ở trên hàng ngang, đường chéo, hàng dọc
+    """
+    n = len(arr)
+    max_value = 0
+    for i in range(n):
+        for j in range(n):
+            if arr[i][j] == 1:
+                x = 1
+                count = 1
+                # Kiểm tra hàng ngang
+                while j + x < n and arr[i][j + x] == 1:
+                    count += 1
+                    x += 1
+                    if max_value < count:
+                        max_value = count
+
+                # Kiểm tra hàng dọc
+                x = 1
+                count = 1
+                while i + x < n and arr[i + x][j] == 1:
+                    count += 1
+                    x += 1
+                    if max_value < count:
+                        max_value = count
+
+                # Kiểm tra đường chéo trái
+                count = 1
+                x = 1
+                while i + x < n and j - x >= 0 and arr[i + x][j - x] == 1:
+                    count += 1
+                    x += 1
+                if count > max_value:
+                    max_value = count
+
+                # Kiểm tra đường chéo phải
+                x = 1
+                count = 1
+                while i + x < n and j + x < n and arr[i + x][j + x] == 1:
+                    count += 1
+                    x += 1
+                    if max_value < count:
+                        max_value = count
+    return max_value
+
 def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
     def strongPassword(s: str):
         a, A, n = False, False, False
