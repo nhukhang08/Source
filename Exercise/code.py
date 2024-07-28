@@ -1,13 +1,26 @@
-with open("input.txt", "r") as file:
-    n = int(file.readline())
-    arr = list(map(int, file.readline().split()))
+with open("input.txt", "r") as f:
+    s = f.readline()
+    a, b = map(int, f.readline().split())
 
-def ucln(a, b):
-    if b == 0:
-        return a
-    return ucln(b, a%b)
 
-uc = ucln(arr[0], arr[-1])
+def base_a_to_decimal(s, a):
+    return int(s, a)
 
-with open("output.txt", "w") as file:
-    file.write(str(uc) + "\n")
+def decimal_to_base_b(n, b):
+    if n == 0:
+        return 0
+    result = ""
+    while n != 0:
+        result += str(n % b)
+        n //= b
+    
+    result = result[::-1]
+    
+    for i in range(len(result)):
+        if result[i] == 
+    
+
+
+
+with open("output.txt", "w") as g:
+    g.write(str(dec))
