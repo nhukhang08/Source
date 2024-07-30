@@ -1,9 +1,23 @@
-def CSNT(a: int, b: int) -> list: # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-trong-doan-lr-156140
+def CSNT(a: int, b: int): # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-trong-doan-lr-156140
     """
     Kiểm tra trong đoạn a, b có những số nguyên tố nào
     Input: a, b (int) : Khoảng kiểm tra
     Output: arr (list) : Các số nguyên tố trong đoạn [a, b]
+    Ý tưởng:
+        Duyệt các số trong arr = [A, B] 
+            Kiểm tra arr[i] có phải là số nguyên tố:
+                Đúng 
+                {
+                    Lưu vào danh sách kết quả
+                }
+        In kết quả
+    Thuật toán:
+        for i [A, B]:
+            if arr[i] là số nguyên tố:
+                result.append(arr[i])
+        return result    
     """
+
     def prime(x):
         if x in [2, 3]:
             return True
@@ -13,11 +27,11 @@ def CSNT(a: int, b: int) -> list: # https://ucode.vn/problems/bai-1-liet-ke-cac-
             if x % i == 0 or x % (i + 2) == 0:
                 return False
         return True
-    arr = []
+    result = []
     for i in range(a, b+1):
         if prime(i):
-            arr.append(i)
-    return arr
+            result.append(i)
+    return result
 def CHUSO(m: int, n: int, k: int) -> str: # https://ucode.vn/problems/bai-2-tim-k-chu-so-cuoi-cung-cua-mn-156141
     """
     Tìm k số sau cùng của m^n
@@ -239,11 +253,8 @@ def BHK(n: int): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
             if int(str(list_num[0]) + num) % n == 0:
                 return int(str(list_num[0]) + num)
         list_num.pop(0)
-
 def ONES(n: int): # https://ucode.vn/problems/bai-17-so-mot-159012
     return pow(int("1" * n), 2)
-
-
 def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-158504
     """
     Tìm đoạn trong danh sách có tổng lớn nhất
@@ -284,7 +295,6 @@ def STRING(k: int, s1: str): # https://ucode.vn/problems/bai-12-string-158560:
     """
     point = len(s1) - k % len(s1)
     return s1[point:] + s1[:point]
-
 def LATGACH(arr: list, n: int, m: int): # https://ucode.vn/problems/bai-14-lat-gach-158938
     """
     n: hàng
@@ -346,7 +356,6 @@ def CARO(arr: list):
                     if max_value < count:
                         max_value = count
     return max_value
-
 def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
     def strongPassword(s: str):
         a, A, n = False, False, False
@@ -373,10 +382,7 @@ def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
 
 def main():
     f, g = open("input.txt", "r"), open("output.txt", "w")
-    
-    result = STRING(3, "MPICOLY")
-
-    print(result)
+    help(CSNT)
     
     f.close(); g.close()
 

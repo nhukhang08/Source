@@ -4,6 +4,11 @@ with open("TONGSOLAP.INP", "r") as file:
 
 g = open("TONGSOLAP.OUT", "w")
 
+N = []
+K = []
+R = []
+
+
 MOD = 10**6 + 7
 for i in range(1, len(lines)):
     n, k = map(int, lines[i].split())
@@ -12,6 +17,6 @@ for i in range(1, len(lines)):
         num = int(str(k) * i) % MOD
         result += num
 
-    g.write(str(result) + "\n")
+    g.write(str(result % MOD ) + "\n")
 
 g.close()

@@ -1,26 +1,13 @@
 with open("input.txt", "r") as f:
-    s = f.readline()
-    a, b = map(int, f.readline().split())
-
-
-def base_a_to_decimal(s, a):
-    return int(s, a)
-
-def decimal_to_base_b(n, b):
-    if n == 0:
-        return 0
-    result = ""
-    while n != 0:
-        result += str(n % b)
-        n //= b
-    
-    result = result[::-1]
-    
-    for i in range(len(result)):
-        if result[i] == 
-    
-
-
-
+    n, m = map(int, f.readline().split())
+s = [1]
+for i in range(n):
+    result = []
+    while len(s)!=0:
+        num = s.pop()
+        result.append(2*num+1)
+        result.append(3*num+1)
+    s = result
+result.sort()
 with open("output.txt", "w") as g:
-    g.write(str(dec))
+    g.write(str(result[m-1]))
