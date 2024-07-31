@@ -1,16 +1,20 @@
 # m, n, k = map(int, input().split())
-m, n, k = 9, 5, 3
+n = 3
 
-"""
+def BHK(n):
+    list_num = [2, 7]
+    div = {}
+    while list_num: 
+        num = list_num.pop(0)
+        if num % n == 0:
+            return num
+        if num%n not in div:
+            div[num%n] = num
+        print(div)
 
-
-
-
-"""
-
-t = "1"
-for i in range(n):
-    t = str(int(t)*m)
-    if len(t) > k:
-        t = t[len(t)-k:]
-print(t)
+if __name__ == "__main__":
+    BHK(n)
+        
+        
+        
+        
