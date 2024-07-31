@@ -1,8 +1,8 @@
 def CSNT(a: int, b: int): # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguyen-to-trong-doan-lr-156140
     """
     Kiểm tra trong đoạn a, b có những số nguyên tố nào
-    Input: a, b (int) : Khoảng kiểm tra
-    Output: arr (list) : Các số nguyên tố trong đoạn [a, b]
+        Input: a, b (int) : Khoảng kiểm tra
+        Output: arr (list) : Các số nguyên tố trong đoạn [a, b]
     Ý tưởng:
         Duyệt các số trong arr = [A, B] 
             Kiểm tra arr[i] có phải là số nguyên tố:
@@ -35,20 +35,36 @@ def CSNT(a: int, b: int): # https://ucode.vn/problems/bai-1-liet-ke-cac-so-nguye
 def CHUSO(m: int, n: int, k: int) -> str: # https://ucode.vn/problems/bai-2-tim-k-chu-so-cuoi-cung-cua-mn-156141
     """
     Tìm k số sau cùng của m^n
+        Input: M (cơ số) N (mũ số) K (số chữ số sau cùng của M ^ N)
+        Output: K chữ số sau cùng của M ^ N
+    Ý tưởng:
+        M^N = M.M.M.M....M_N = abcd..
+        Chỉ lấy k số sau cùng ở mỗi phép tích để tính toán
+        cho m, n, k = 9, 5, 3; t chỉ có k số
+        t1 = 1 
+        t2 = t1 * 9 (t2 = 9)
+        t3 = t2 * 9 (t3 = 81)
+        t4 = t3 * 9 (t4 = 729)
+        t5 = t4 * 9 (t5 = 656)
+        t6 = t5 * 9 (t6 = 049)
+        Nếu chiều dài của t > k: thì lấy khoảng theo CT:
+            t = t[len(t)-k:]    
     """
     t = "1"
-    for i in range(n):
-        if len(t) < k:
-            t = str(int(t) * m)
-        else:
-            t = str(int(t[len(t) - k:]) * m)
-    result = str(t[len(t) - k:])
-    if len(result) < k:
-        result = "0" * (k - len(result)) + result
-    return result
+    for _ in range(n):
+        t = str(int(t)*m)
+        if len(t) > k:
+            t = t[len(t)-k:]
+    return t
 def XAUCON(s: str): # https://ucode.vn/problems/bai-3-dem-so-luong-xau-con-lien-tiep-khac-nhau-cua-s-158285
     """
     Đếm số lượng xâu con liên tiếp khác nhau trong chuỗi
+    
+    Ý tưởng:
+        Tạo ra các xâu liên tiếp bằng cách duyệt bằng 2 con trỏ
+        Nếu xâu chưa có trong ds:
+            Thêm vào ds
+        In số lượng kết quả
     """
     result = []
     for i in range(len(s)):
@@ -61,6 +77,17 @@ def XAUCON(s: str): # https://ucode.vn/problems/bai-3-dem-so-luong-xau-con-lien-
 def SXPS(n: int, k: int) -> str: # https://ucode.vn/problems/bai-4-phan-so-thu-k-trong-tap-fn-158286
     """
     Trong danh sách có tất cả các phân số trong đoạn [0, 1] với mẫu số không quá *n. In ra vị trí *k của danh sách sau khi sắp xếp.
+    
+    Ý tưởng:
+        Để các giá trị tạo được luôn nhỏ hơn 0 thì mẫu lớn hơn tử
+        Dùng 2 dòng for
+            với for i (0 -> n): tử
+                for j (i+1, n): mẫu:
+                    thêm vào ds_phanso ("i/j")
+                    thêm vào ds_thapphan i/j
+        Sắp xếp ds_thapphan:
+            Khi sắp xếp thapphan thì sắp xếp luôn ds_phanso
+        In vị trí thứ k trong ds_phanso
     """
     phanso = []
     dec = []
@@ -94,6 +121,13 @@ def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-
             [...]
             [X_k, X_khv]
         ]
+    Ý tưởng:
+        Tạo ra các số fib có giá trị từ 10 đến N:
+            Kiểm tra số nguyên tố
+            Tạo hoán vị:
+                Nếu hoán vị là số nguyên tố thì dừng hoán vị
+                    Thêm vào ds kết quả: Số đang kiểm tra; Hoán vị là số nguyên tố
+        In kết quả trong ds kết quả
     """
     def matrix_mul(a, b):
         arr = [[0, 0], [0, 0]]
@@ -154,18 +188,26 @@ def NGTOFIB(n: int): # https://ucode.vn/problems/bai-5-tim-so-nguyen-x-thoa-man-
     return result
 def SO(n: int, k: int): # https://ucode.vn/problems/bai-6-day-nhi-phan-co-dung-k-so-0-co-nghia-158499
     """
-    Kiểm tra từ 1 đến n có bao nhiêu số khi biểu diễn ở dạng nhị phân có k số 0 (có nghĩa)
+    Kiểm tra từ 1 đến n có bao nhiêu số khi biểu diễn ở dạng nhị phân có đúng k số 0 (có nghĩa)
+    
+    Ý tưởng:
+        Kiểm tra các số từ 1 đến n:
+            Chuyển *num thành số nhị phân
+            Kiểm tra số nhị phân trong *num có bao nhiêu số 0:
+            Kiểm tra nếu tổng số 0 = k:
+                count += 1
+        In count
     """
-    result = 0
+    count = 0
     for i in range(1, n + 1):
         binary = bin(i)[2:]
         num0 = 0
         for num in binary:
             if num == '0':
                 num0 += 1
-            if num0 == k:
-                result += 1
-    return result
+        if num0 == k:
+            count += 1
+    return count
 def CHIAHET(m: int, n: int, k: int): # https://ucode.vn/problems/bai-7-chia-het-cho-k-158500
     """
     Cho M số 1; N số 0 thuộc mã nhị phân
@@ -243,6 +285,7 @@ def GIAITHUA(n): # https://ucode.vn/problems/bai-9-phan-tich-n-thanh-thua-so-ngu
     for i, j in result.items():
         content.append(j)
     return content
+
 def BHK(n: int): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
     list_num = [2, 7]
     while list_num:
@@ -253,8 +296,13 @@ def BHK(n: int): # https://ucode.vn/problems/bai-10-bay-hai-khong-158559
             if int(str(list_num[0]) + num) % n == 0:
                 return int(str(list_num[0]) + num)
         list_num.pop(0)
+
 def ONES(n: int): # https://ucode.vn/problems/bai-17-so-mot-159012
+    """
+    Cho số nguyên dương N, hãy tính (11111....N) ^ 2    
+    """
     return pow(int("1" * n), 2)
+
 def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-158504
     """
     Tìm đoạn trong danh sách có tổng lớn nhất
@@ -283,6 +331,7 @@ def GOLD(n, arr): # https://ucode.vn/problems/bai-11-alibaba-va-40-ten-cuop-1585
             a = i + 1
             break
     return [m, a, b]
+
 def STRING(k: int, s1: str): # https://ucode.vn/problems/bai-12-string-158560: 
     """
     Ban đầu có một chuỗi s bị cắt tại vị trí k. Phần bị cắt của s từ k đến hết được đưa lên đầu của chuỗi s. Ta có chuỗi s1
@@ -295,25 +344,59 @@ def STRING(k: int, s1: str): # https://ucode.vn/problems/bai-12-string-158560:
     """
     point = len(s1) - k % len(s1)
     return s1[point:] + s1[:point]
+
 def LATGACH(arr: list, n: int, m: int): # https://ucode.vn/problems/bai-14-lat-gach-158938
     """
-    n: hàng
-    m: cột
-    arr: danh sách
+    Cho một danh sách hãy kiểm tra xem có bao nhiêu ô đen và ô trắng
+    Input:
+        n: hàng
+        m: cột
+        arr: danh sách kiểm tra
+    Output:
+        Số lượng ô đen, và ô trắng
+    
+    Ý tưởng:
+    Ta có: 
+        Ô đen:
+            [
+                3, 1
+                0, 2
+            ]
+        Ô trắng:
+            [
+                2, 0
+                1, 3
+            ]
+    Duyệt ds bằng 2 con trỏ:
+        i, j (i duyệt từ hàng) (j duyệt từng cột):
+        Nếu vị trí duyệt gặp các giá trị của Ô theo yêu cầu:
+            Tăng số lượng +1 của Ô đen, hoặc Ô trắng
+        In kết quả
+
     """
     black, white = 0, 0
     for i in range(n - 1):
         for j in range(m - 1):
-            # check White
+            # Check Pixel Black
             if arr[i][j] == 3 and arr[i][j + 1] == 1 and arr[i + 1][j] == 0 and arr[i + 1][j + 1] == 2:
                 black += 1
+            # Check Pixel White
             elif arr[i][j] == 2 and arr[i][j + 1] == 0 and arr[i + 1][j] == 1 and arr[i + 1][j + 1] == 3:
                 white += 1
     return black, white
+
 def CARO(arr: list):
     """
     Cho một ma trận nhị phân
     Tìm số 1 liên tiếp lớn nhất ở trên hàng ngang, đường chéo, hàng dọc
+    
+    Ý tưởng:
+        Duyệt danh sách: i, j
+            Nếu tại vị trí arr[i, j] == 1
+                Duyệt các số 1 liên tiếp theo: (Duyệt từ trên xuống)
+                    Lưu vào danh sách
+                        Hàng ngang, Duyệt hàng dọc, duyệt đường chéo trái, duyệt đường chéo phải
+        In ra kết quả lớn nhất
     """
     n = len(arr)
     max_value = 0
@@ -356,7 +439,27 @@ def CARO(arr: list):
                     if max_value < count:
                         max_value = count
     return max_value
+
 def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
+    """
+    Cho một xâu s, hãy kiểm tra có bao nhiêu mật khẩu liên tiếp từ s là mật khẩu mạnh:
+        Có chữ thường
+        Có chữ hoa
+        Có số
+        Chiều dài từ 6 trở đi
+    
+    Ý tưởng:
+        Dùng 2 con trỏ để tạo ra các chuỗi liên tiếp:
+            Kiểm tra chuỗi có phải mật khẩu mạnh hay không:
+                Đúng 
+                {
+                Biến đếm +1
+                Nếu mật khẩu hiện tại đã đúng, toàn bộ mật khẩu sau sẽ đúng:
+                Biến đếm + (len(s) - vị trí hiện tại)
+                Kết thúc kiểm tra con trỏ thứ 2, -> Tiếp tục kiểm tra con trỏ thứ 1 (i+1)    
+                }
+        In kết quả
+    """
     def strongPassword(s: str):
         a, A, n = False, False, False
 
