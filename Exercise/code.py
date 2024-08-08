@@ -1,21 +1,38 @@
-# m, n, k = map(int, input().split())
-n = 3
+def is_prime(n):
+    if n in [2, 3]:
+        return True
+    elif n < 2 or n % 2 == 0 or n % 3 == 0:
+        return False
+    for i in range(5, int(n**0.5) + 1, 6):
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+    return True
 
-def BHK(n):
-    list_num = [2, 7]
-    # 
-    div = {}
-    while list_num: 
-        num = list_num.pop(0)
-        if num % n == 0:
-            return num
-        if num%n in div:
-            for num in "027":
-                list_num.append( int ( str(list_num[0]) + num ) % n )
-                if int ( str(list_num[0]) + num ) % n == 0:
-                    return int ( str(list_num[0]) + num )
-        else:
-            div[num%n] = num
+with open("input.txt", "r") as f:
+    n = int(f.readline())
+    arr = list(map(int, f.readline().split()))
+
+def find_max(arr):
+    check = 0
+    max_value = 0
+    index = -1
+    for i in range(len(arr)):
+        if int(str(arr[i])[0]) > check:
+            check = int(str(arr[i])[0])
+            max_value = arr[i]
+            index = i
+    return max_value, index
+
+result = ""
+for i in range(n):
+    max_value, index = find_max(arr)
+    arr.pop(index)
+    result += str(max_value)
+
+print(result)
 
 
-print(BHK(n))
+
+
+# with open("output.txt", "w") as g:
+#     g.write()

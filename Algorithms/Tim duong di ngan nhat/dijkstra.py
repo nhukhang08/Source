@@ -8,8 +8,7 @@ for _ in range(m):
     x, y, w = map(int, f.readline().split())
     arr[x][y] = w
 
-def dijkstra(arr:list, start):
-    n = len(arr)
+def find_way(arr:list, start):
     d = [start] + [float("inf")] * (n-1)
     p = [False] * n
     
@@ -35,9 +34,10 @@ def dijkstra(arr:list, start):
             result[i] = d[i]
     return result
 
+  
 
 
-result = dijkstra(arr, start)
-for v, w in result.items():
-    g.write(f"{v}: {w}\n")
+for v, l in find_way(arr, start).items():
+    print(f"{v}: {l}")
+
 f.close(); g.close()

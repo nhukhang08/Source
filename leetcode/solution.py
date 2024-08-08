@@ -100,6 +100,10 @@ def BestTimeToBuyAndSellStock(prices: list) -> int:
 
 
 def ValidPalindrome(s: str) -> bool:
+    """
+    Kiểm tra tính đối xứng của chuỗi
+
+    """
     string = ""
     for char in s:
         if char.isalnum():
@@ -140,6 +144,12 @@ def ValidAnagram(s: str, t: str) -> bool:
     return False
 
 def BinarySearch(nums: list, target: int) -> int:
+    """
+    Tìm giá trị target trong danh sách nums bằng "tìm kiếm nhị phân"
+    Độ phức tạp O(logN)
+
+    """
+
     l, r = 0, len(nums) - 1
     
     while l <= r:
@@ -152,13 +162,37 @@ def BinarySearch(nums: list, target: int) -> int:
         else:
             return point
     return -1
-            
+
+def maximum_subarray(nums):
+    """
+    Từ danh sách nums, tính tổng liên tiếp lớn nhất xuất hiện trong danh sách num
+    """
+    max_current = max_global = nums[0]
+    for num in nums[1:]:
+        max_current = max(max_current, num)
+        max_global = max(max_global, max_current)
+    return max_global
+def long_string(s: str):
+    """
+    Tìm chuỗi liên tiếp và các kí tự khác nhau trong s   
+    """
+    pass
+def max_sum(nums: list):
+    """
+    Tính tổng lớn nhất trong danh sách
+    """
+    max_current = max_global = nums[0]
+
+    for num in nums[1:]:
+        max_current = max(num, max_current + num)
+        print(max_current, max_global, num)
+        if max_current > max_global:
+            max_global = max_current
+
+    return max_global
+
+def main(): 
+    print(max_sum([2, -1000000, 2, 2, 2, -8]))
     
-
-def main():
-    output = BinarySearch([5], 5)
-    print(output)
-
-
 if __name__ == "__main__":
     main()
