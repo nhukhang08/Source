@@ -483,6 +483,54 @@ def MATKHAU(s: str): # https://ucode.vn/problems/bai-20-mat-khau-159020
                 break
     return count
 
+def vunglienthong():
+    with open("input.txt", "r") as file:
+        n, m = map(int, file.readline().split())
+        
+        # Khởi tạo danh sách kề (danh sách liên kết)
+        dske = {i: [] for i in range(1, n+1)}
+        
+        for _ in range(m):
+            x, y = map(int, file.readline().split())
+            dske[x].append(y)
+            dske[y].append(x)
+
+    # Hàm BFS
+    def BFS(start):
+        visited = [False] * (n + 1)  # Danh sách đánh dấu
+        result = []  # Kết quả
+        queue = []  # Hàng đợi
+        
+        queue.append(start)  # Thêm đỉnh bắt đầu vào hàng đợi
+        visited[start] = True  # Đánh dấu đỉnh bắt đầu đã thăm
+        
+        while queue:
+            u = queue.pop(0)  # Lấy phần tử đầu hàng đợi
+            result.append(u)  # Ghi nhận vào kết quả
+            
+            for v in dske[u]:  # Xét các đỉnh kề của u
+                if not visited[v]:  # Nếu chưa được thăm
+                    queue.append(v)  # Thêm vào hàng đợi
+                    visited[v] = True  # Đánh dấu đã thăm
+        
+        return result
+    
+    lienthong = []
+    result = []
+    i = 1
+    while True:
+        lienthong = BFS(i)
+        result.append(BFS(i))
+        i += len(lienthong)
+        if i == 12:
+            break
+    
+    print(len(result))
+    for line in result:
+        print(line)
+    
+
+
 def main():
     f, g = open("input.txt", "r"), open("output.txt", "w")
     help(CSNT)
